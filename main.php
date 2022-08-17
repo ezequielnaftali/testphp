@@ -9,7 +9,7 @@ abstract class Fruit {
     
   }
   public function intro() {
-    echo "The fruit is {$this->name} and the color is {$this->color}.";
+    echo "The fruit is {$this->name} and the colour is {$this->color}.";
   }
   public abstract function message();
 }
