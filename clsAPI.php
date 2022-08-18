@@ -9,7 +9,7 @@ class APICall {
     public static function get($configObject, $service, $arrParams = array()){
                 return self::call($configObject, "GET", $service, $arrParams);
     }
- // other method can be implemented in the future (delete, put)
+ // other methods can be implemented in the future (delete, put)
 	private static function call($configObject, $curl_method, $service, $arrParams = array()) {
         $curl_endpoint= $configObject["endpoint"];
         $token=$configObject["token"];
@@ -60,5 +60,26 @@ class APICall {
      }
  }
 }
+
+
+//this code should be in a separated config manager class fileS
+class configManager{
+    private $endpoint;
+    private $token;
+    //in the future this can be overloaded to get config info from better sources
+    public function __construct($api_url, $token){
+          $this->endpoint = $api_url;
+          $this->token = $token;
+    }
+    public function getConfig() 
+    {
+      
+      $config = array('endpoint'=> "".$this->endpoint."");
+      $config += array('token'=> "".$this->token."");
+      return $config;
+    }
+  
+  }
+
 ?>
 
