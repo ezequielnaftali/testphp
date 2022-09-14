@@ -1,26 +1,23 @@
 <?php
 
-abstract class Fruit {
-  public $name;
-  public $color;
-  public function __construct($name, $color) {
-    $this->name = $name;
-    $this->color = $color;
-    
-  }
-  public function intro() {
-    echo "The fruit is {$this->name} and the color is {$this->color}.";
-  }
-  public abstract function message();
-}
+require "clsAPI.php";
+require "clsProperty.php";
+require "clsRepository.php";
 
-// Strawberry is inherited from Fruit
-class Strawberry extends Fruit {
-  public function message() {
-    echo "Am I a fruit or a berry? ";
-  }
-}
-$strawberry = new Strawberry("Strawberry", "red");
-$strawberry->message();
-$strawberry->intro();
+
+//this code will retrieve a list of properties from EasyBroker API
+//in a future release pagination could be implemented and other search methods
+
+$configManager =  new configManager ('https://api.stagingeb.com/v1/','05mh61963tpe2bi7efwoamhciwt0h5');
+$config = $configManager->getconfig();
+
+$propertyRepository = new PropertyRepositoryAPI($config);
+$propertyController = new PropertyController($propertyRepository);
+$propertyList = $propertyController->getAll();
+$propertyController->renderPropertiesList($propertyList);
+echo "\n THE END  \n ";
+
+
+
+
 ?>
